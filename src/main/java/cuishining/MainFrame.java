@@ -1,13 +1,15 @@
 package cuishining;
 
-import com.google.common.collect.HashMultimap;
-
-import javax.swing.*;
-
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Set;
+
+import javax.swing.*;
+
+import com.google.common.collect.HashMultimap;
+
+import cuishining.bizz.DuplicateFileDetector;
 
 public class MainFrame extends JFrame implements ActionListener {
     GridBagLayout g = new GridBagLayout();
