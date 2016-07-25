@@ -21,6 +21,9 @@ public class RenameByTimePolicy implements RenamePolicy {
         logger.info("接受参数fileList为:{}", fileList);
         for (File file : fileList) {
             String photoTimeStr = JpgFileUtil.getPhotoTimeStr(file);
+            if (StringUtils.isEmpty(photoTimeStr)) {
+                logger.error("文件{}不存在拍摄日期，无法重命名",file);
+            }
             String path = file.getParentFile().getAbsolutePath();
             if (StringUtils.isNotEmpty(photoTimeStr)) {
                 renameFile(file, photoTimeStr, path);
@@ -30,6 +33,7 @@ public class RenameByTimePolicy implements RenamePolicy {
     }
 
     private void renameFile(File file, String photoTimeStr, String path) {
+        logger.info("文件{}正在重命名中……",file);
         File renamedFile = new File(path + File.separator + photoTimeStr + ".jpg");
         if (renamedFile.exists()) {
             logger.error("{}文件已经存在，无法重命名。", renamedFile);

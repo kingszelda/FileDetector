@@ -44,7 +44,6 @@ public class FileUtil {
     private static LinkedList<File> matchTheSuffix(File file, String nameSuffix, LinkedList<File> fileQueue,
             List<File> fileList) {
         String fileName = file.getName();
-        logger.info("filename:{}", file);
         if (StringUtils.isNotEmpty(nameSuffix)
                 && StringUtils.endsWith(fileName.toLowerCase(), nameSuffix.toLowerCase())) {
             // 当有后缀名时，匹配的放入队列

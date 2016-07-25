@@ -4,19 +4,24 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.util.Date;
 import java.util.List;
 
 import javax.swing.*;
 
+import cuishining.util.TimeUtil;
 import org.apache.commons.lang.StringUtils;
 
 import cuishining.bizz.FileRenameRefactor;
 import cuishining.util.FileUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Created by shining.cui on 2016/7/25.
  */
 class RenameJpgByTimeFrame extends JFrame implements ActionListener {
+    private static final Logger logger = LoggerFactory.getLogger(RenameJpgByTimeFrame.class);
     private JTextField textDirPath;
     private JButton submit;
     private JTextArea result;
@@ -73,6 +78,9 @@ class RenameJpgByTimeFrame extends JFrame implements ActionListener {
             textDirPath.grabFocus();
             return;
         }
+
+        logger.info("================================================================================");
+        logger.info("开始进行照片重命名操作，当前时间为:{}", TimeUtil.parseDateFromSystemDate(new Date()));
         List<File> jpgFileList = FileUtil.getAllFilesUnderPath(basicPath, "jpg");
         boolean renameSuccess = new FileRenameRefactor().renameFiles(jpgFileList);
         if (renameSuccess) {
@@ -80,5 +88,7 @@ class RenameJpgByTimeFrame extends JFrame implements ActionListener {
         } else {
             result.setText("重命名失败");
         }
+        logger.info("照片重命名操作运行完毕，当前时间为:{}", TimeUtil.parseDateFromSystemDate(new Date()));
+        logger.info("================================================================================");
     }
 }

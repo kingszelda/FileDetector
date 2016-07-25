@@ -3,20 +3,25 @@ package cuishining.ui;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Date;
 import java.util.Set;
 
 import javax.swing.*;
 
+import cuishining.util.TimeUtil;
 import org.apache.commons.lang.StringUtils;
 
 import com.google.common.collect.HashMultimap;
 
 import cuishining.bizz.DuplicateFileDetector;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Created by shining.cui on 2016/7/25.
  */
 class DuplicateFileDetectorFrame extends JFrame implements ActionListener {
+    private static final Logger logger = LoggerFactory.getLogger(DuplicateFileDetectorFrame.class);
     private JTextField textDirPath, textNameSuffix;
     private JButton submit;
     private JTextArea result;
@@ -80,6 +85,8 @@ class DuplicateFileDetectorFrame extends JFrame implements ActionListener {
             return;
         }
         String nameSuffix = textNameSuffix.getText();
+        logger.info("================================================================================");
+        logger.info("开始进行文件查重操作，当前时间为:{}", TimeUtil.parseDateFromSystemDate(new Date()));
         HashMultimap<Long, String> duplicateFilesMap = new DuplicateFileDetector().detect(basicPath, nameSuffix);
         Set<Long> md5s = duplicateFilesMap.keySet();
         StringBuilder resultText = new StringBuilder();
@@ -92,5 +99,8 @@ class DuplicateFileDetectorFrame extends JFrame implements ActionListener {
         }
         String num = resultText.toString();
         result.setText(num);
+        logger.info("文件查重操作运行完毕，当前时间为:{}", TimeUtil.parseDateFromSystemDate(new Date()));
+        logger.info("================================================================================");
+
     }
 }

@@ -20,7 +20,6 @@ import com.drew.metadata.exif.ExifDirectoryBase;
  */
 public class JpgFileUtil {
     private static final Logger logger = LoggerFactory.getLogger(JpgFileUtil.class);
-    private static final String timeFormatStr = "yyyy-MM-dd HH-mm-ss";
 
     public static String getPhotoTimeStr(File file) {
         Date date = null;
@@ -34,7 +33,7 @@ public class JpgFileUtil {
                 }
             }
             if (date != null) {
-                timeStr = new DateTime(date, DateTimeZone.UTC).toString(timeFormatStr);
+                timeStr = TimeUtil.parseDateFromJpgFileDate(date);
             }
 
         } catch (ImageProcessingException e) {
