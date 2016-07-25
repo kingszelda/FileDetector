@@ -11,7 +11,7 @@ import org.slf4j.LoggerFactory;
 import com.google.common.collect.Lists;
 
 /**
- *
+ *   文件处理工具
  * Created by shining.cui on 2016/7/12.
  */
 public class FileUtil {
