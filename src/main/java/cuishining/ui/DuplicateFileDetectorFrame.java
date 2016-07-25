@@ -27,7 +27,7 @@ class DuplicateFileDetectorFrame extends JFrame implements ActionListener {
         setTitle("重复文件检测工具");
         setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
         setLayout(g);
-        setSize(550, 550);
+        setSize(800, 800);
 
         addComponent();
 

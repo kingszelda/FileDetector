@@ -27,7 +27,7 @@ class RenameJpgByTimeFrame extends JFrame implements ActionListener {
         setTitle("照片按时间重命名工具");
         setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
         setLayout(g);
-        setSize(550, 550);
+        setSize(800, 800);
 
         addComponent();
 
