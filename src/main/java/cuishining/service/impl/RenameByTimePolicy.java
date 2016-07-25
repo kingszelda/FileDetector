@@ -17,7 +17,7 @@ public class RenameByTimePolicy implements RenamePolicy {
     private static final Logger logger = LoggerFactory.getLogger(RenameByTimePolicy.class);
 
     @Override
-    public void rename(List<File> fileList) {
+    public boolean rename(List<File> fileList) {
         logger.info("接受参数fileList为:{}", fileList);
         for (File file : fileList) {
             String photoTimeStr = JpgFileUtil.getPhotoTimeStr(file);
@@ -26,19 +26,18 @@ public class RenameByTimePolicy implements RenamePolicy {
                 renameFile(file, photoTimeStr, path);
             }
         }
+        return true;
     }
 
-    private boolean renameFile(File file, String photoTimeStr, String path) {
+    private void renameFile(File file, String photoTimeStr, String path) {
         File renamedFile = new File(path + File.separator + photoTimeStr + ".jpg");
         if (renamedFile.exists()) {
-            logger.info("{}文件已经存在，无法重命名 。", renamedFile);
-            return false;
+            logger.error("{}文件已经存在，无法重命名。", renamedFile);
         } else {
             boolean renameSuccess = file.renameTo(renamedFile);
             if (renameSuccess) {
                 logger.info("{}文件命名为{}", file.getName(), renamedFile.getName());
             }
-            return true;
         }
     }
 }

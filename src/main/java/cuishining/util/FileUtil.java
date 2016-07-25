@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.LinkedList;
 import java.util.List;
 
+import com.google.common.base.Preconditions;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,7 +31,7 @@ public class FileUtil {
         LinkedList<File> fileQueue = Lists.newLinkedList(Lists.newArrayList(basicfile));
         while (!fileQueue.isEmpty()) {
             File file = fileQueue.poll();
-            if (file.isDirectory()) {
+            if (file.isDirectory() && file.listFiles()!= null) {
                 fileQueue.addAll(Lists.newArrayList(file.listFiles()));
             } else {
                 fileQueue = matchTheSuffix(file,nameSuffix,fileQueue,fileLis);

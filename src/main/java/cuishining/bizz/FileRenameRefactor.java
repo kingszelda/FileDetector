@@ -15,14 +15,14 @@ import cuishining.service.impl.RenameByTimePolicy;
 public class FileRenameRefactor {
     private static final Logger logger = LoggerFactory.getLogger(FileRenameRefactor.class);
 
-    public void renameFiles(List<File> fileList) {
+    public boolean renameFiles(List<File> fileList) {
         logger.info("接受参数fileList为:{}",fileList);
         RenamePolicy renamePolicy =new RenameByTimePolicy();
-        renameFilesByJpgTime(renamePolicy,fileList);
+        return renameFilesByJpgTime(renamePolicy,fileList);
     }
 
-    private void renameFilesByJpgTime(RenamePolicy renamePolicy, List<File> fileList) {
+    private boolean renameFilesByJpgTime(RenamePolicy renamePolicy, List<File> fileList) {
         logger.info("接受参数renamePolicy为:{},fileList为:{}",renamePolicy,fileList);
-        renamePolicy.rename(fileList);
+        return renamePolicy.rename(fileList);
     }
 }
