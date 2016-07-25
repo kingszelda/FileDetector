@@ -1,18 +1,17 @@
 package cuishining.ui;
 
-import com.google.common.collect.HashMultimap;
-import cuishining.bizz.DuplicateFileDetector;
-import cuishining.bizz.FileRenameRefactor;
-import cuishining.util.FileUtil;
-import org.apache.commons.lang.StringUtils;
-
-import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
-import java.util.*;
 import java.util.List;
+
+import javax.swing.*;
+
+import org.apache.commons.lang.StringUtils;
+
+import cuishining.bizz.FileRenameRefactor;
+import cuishining.util.FileUtil;
 
 /**
  * Created by shining.cui on 2016/7/25.

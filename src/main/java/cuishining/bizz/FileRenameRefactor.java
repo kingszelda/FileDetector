@@ -16,13 +16,13 @@ public class FileRenameRefactor {
     private static final Logger logger = LoggerFactory.getLogger(FileRenameRefactor.class);
 
     public boolean renameFiles(List<File> fileList) {
-        logger.info("接受参数fileList为:{}",fileList);
-        RenamePolicy renamePolicy =new RenameByTimePolicy();
-        return renameFilesByJpgTime(renamePolicy,fileList);
+        logger.info("接受参数fileList为:{}", fileList);
+        RenamePolicy renamePolicy = new RenameByTimePolicy();
+        return renameFilesByJpgTime(renamePolicy, fileList);
     }
 
     private boolean renameFilesByJpgTime(RenamePolicy renamePolicy, List<File> fileList) {
-        logger.info("接受参数renamePolicy为:{},fileList为:{}",renamePolicy,fileList);
+        logger.info("接受参数renamePolicy为:{},fileList为:{}", renamePolicy, fileList);
         return renamePolicy.rename(fileList);
     }
 }

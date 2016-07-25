@@ -3,7 +3,6 @@ package cuishining.bizz;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
-import java.util.Scanner;
 import java.util.Set;
 
 import org.slf4j.Logger;
@@ -56,17 +55,4 @@ public class DuplicateFileDetector {
         }
         return duplicateFilesMap;
     }
-
-    private String getPath() {
-        Scanner reader = new Scanner(System.in);
-        System.out.println("请输入文件夹地址：");
-        return reader.nextLine();
-    }
-
-    private String getNameSuffix() {
-        Scanner reader = new Scanner(System.in);
-        System.out.println("请输入文件名后缀：");
-        return reader.nextLine();
-    }
-
 }

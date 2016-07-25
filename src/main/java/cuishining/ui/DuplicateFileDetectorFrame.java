@@ -1,27 +1,29 @@
 package cuishining.ui;
 
-import com.google.common.collect.HashMultimap;
-import cuishining.bizz.DuplicateFileDetector;
-import org.apache.commons.lang.StringUtils;
-
-import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Set;
 
+import javax.swing.*;
+
+import org.apache.commons.lang.StringUtils;
+
+import com.google.common.collect.HashMultimap;
+
+import cuishining.bizz.DuplicateFileDetector;
+
 /**
  * Created by shining.cui on 2016/7/25.
  */
-class DuplicateFileDetectorFrame extends JFrame implements ActionListener{
+class DuplicateFileDetectorFrame extends JFrame implements ActionListener {
     private JTextField textDirPath, textNameSuffix;
     private JButton submit;
     private JTextArea result;
     private GridBagLayout g = new GridBagLayout();
     private GridBagConstraints c = new GridBagConstraints();
 
-
-    void createFrame(){
+    void createFrame() {
         setTitle("重复文件检测工具");
         setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
         setLayout(g);
