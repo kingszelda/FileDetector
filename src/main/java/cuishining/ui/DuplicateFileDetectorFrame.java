@@ -5,9 +5,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Date;
 import java.util.Set;
+import java.util.concurrent.TimeUnit;
 
 import javax.swing.*;
 
+import com.google.common.base.Stopwatch;
+import cuishining.util.FileUtil;
 import cuishining.util.TimeUtil;
 import org.apache.commons.lang.StringUtils;
 
@@ -29,7 +32,7 @@ class DuplicateFileDetectorFrame extends JFrame implements ActionListener {
     private GridBagConstraints c = new GridBagConstraints();
 
     void createFrame() {
-        setTitle("重复文件检测工具");
+        setTitle("重复文件删除工具");
         setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
         setLayout(g);
         setSize(800, 800);
@@ -42,7 +45,7 @@ class DuplicateFileDetectorFrame extends JFrame implements ActionListener {
     }
 
     private void addComponent() {
-        JLabel toolName = new JLabel("重复文件检测工具");
+        JLabel toolName = new JLabel("重复文件删除工具");
         add(g, c, toolName, 0, 0, 1, 1);
 
         JLabel dirPath = new JLabel("请输入文件夹地址：");
@@ -78,7 +81,9 @@ class DuplicateFileDetectorFrame extends JFrame implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        Stopwatch stopwatch = Stopwatch.createStarted();
         String basicPath = textDirPath.getText();
+
         if (StringUtils.isEmpty(basicPath)) {
             result.setText("请输入文件夹地址！");
             textDirPath.grabFocus();
@@ -86,21 +91,15 @@ class DuplicateFileDetectorFrame extends JFrame implements ActionListener {
         }
         String nameSuffix = textNameSuffix.getText();
         logger.info("================================================================================");
-        logger.info("开始进行文件查重操作，当前时间为:{}", TimeUtil.parseDateFromSystemDate(new Date()));
+        logger.info("开始进行文件去重操作，当前时间为:{}", TimeUtil.parseDateFromSystemDate(new Date()));
         HashMultimap<Long, String> duplicateFilesMap = new DuplicateFileDetector().detect(basicPath, nameSuffix);
-        Set<Long> md5s = duplicateFilesMap.keySet();
-        StringBuilder resultText = new StringBuilder();
-        for (Long md5 : md5s) {
-            Set<String> fileNames = duplicateFilesMap.get(md5);
-            resultText.append("以下重复文件：\n");
-            for (String fileName : fileNames) {
-                resultText.append(fileName).append("\n");
-            }
-        }
-        String num = resultText.toString();
+        String num = FileUtil.deleteFilesFromMultiMap(duplicateFilesMap);
         result.setText(num);
-        logger.info("文件查重操作运行完毕，当前时间为:{}", TimeUtil.parseDateFromSystemDate(new Date()));
+        logger.info("文件去重操作运行完毕，当前时间为:{}", TimeUtil.parseDateFromSystemDate(new Date()));
+        FileUtil.deleteFilesFromMultiMap(duplicateFilesMap);
+        stopwatch.stop();
         logger.info("================================================================================");
+        logger.info("程序共耗时{}",stopwatch.elapsed(TimeUnit.SECONDS));
 
     }
 }

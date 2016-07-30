@@ -29,7 +29,7 @@ public class DuplicateFileDetector {
     private HashMultimap<Long, String> analyzeMd5OfAllFiles(List<File> fileList) {
         HashMultimap<Long, String> md5FileNameMultiMap = HashMultimap.create();
         for (File file : fileList) {
-            logger.error("文件{}，正在分析中……",file);
+            logger.info("文件{}，正在分析中……",file);
             try {
                 long md5 = Files.hash(file, Hashing.md5()).asLong();
                 String path = file.getCanonicalPath();

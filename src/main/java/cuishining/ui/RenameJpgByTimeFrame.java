@@ -6,9 +6,11 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import javax.swing.*;
 
+import com.google.common.base.Stopwatch;
 import cuishining.util.TimeUtil;
 import org.apache.commons.lang.StringUtils;
 
@@ -72,6 +74,7 @@ class RenameJpgByTimeFrame extends JFrame implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        Stopwatch started = Stopwatch.createStarted();
         String basicPath = textDirPath.getText();
         if (StringUtils.isEmpty(basicPath)) {
             result.setText("请输入文件夹地址！");
@@ -88,7 +91,9 @@ class RenameJpgByTimeFrame extends JFrame implements ActionListener {
         } else {
             result.setText("重命名失败");
         }
+        started.stop();
         logger.info("照片重命名操作运行完毕，当前时间为:{}", TimeUtil.parseDateFromSystemDate(new Date()));
         logger.info("================================================================================");
+        logger.info("共用时{}分钟",started.elapsed(TimeUnit.MINUTES));
     }
 }

@@ -10,7 +10,7 @@ import javax.swing.*;
  * Created by shining.cui on 2016/7/24.
  */
 public class FileDetectorFrame extends JFrame implements ActionListener {
-    private JButton bt1 = new JButton("重复文件探测");
+    private JButton bt1 = new JButton("重复文件删除");
     private JButton bt2 = new JButton("照片按拍摄时间重命名");
 
     private void createFileDetectorFrame() {

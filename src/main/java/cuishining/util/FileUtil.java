@@ -1,9 +1,13 @@
 package cuishining.util;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 
+import com.google.common.collect.HashMultimap;
+import com.google.common.io.Files;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -55,4 +59,29 @@ public class FileUtil {
         return fileQueue;
     }
 
+    public static String deleteFilesFromMultiMap(HashMultimap<Long, String> duplicateFileMultimap) {
+        Set<Long> md5s = duplicateFileMultimap.keySet();
+        StringBuilder sb = new StringBuilder();
+        int count = 0;
+        for (long md5 : md5s) {
+            ArrayList<String> filenames = Lists.newArrayList(duplicateFileMultimap.get(md5));
+            sb.append("以下重复文件：\n");
+            for (String filename : filenames) {
+                    sb.append(filename).append("\n");
+            }
+            String firstDupFile = filenames.get(0);
+            File file = new File(firstDupFile);
+            boolean delete = file.delete();
+            if (delete) {
+                logger.info("文件{}已被删除", firstDupFile);
+                sb.append("文件").append(firstDupFile).append("已被删除");
+                count++;
+            } else {
+                logger.error("文件{}删除失败", firstDupFile);
+            }
+        }
+        sb.append("共删除").append(count).append("个文件");
+        logger.info("共删除{}个文件",count);
+        return sb.toString();
+    }
 }
