@@ -23,24 +23,21 @@ public class JpgFileUtil {
 
     public static String getPhotoTimeStr(File file) {
         Date date = null;
-        String timeStr = null;
         try {
             Metadata metadata = ImageMetadataReader.readMetadata(file);
             for (Directory dr : metadata.getDirectories()) {
                 if (dr.containsTag(ExifDirectoryBase.TAG_DATETIME_ORIGINAL)) {
                     date = dr.getDate(ExifDirectoryBase.TAG_DATETIME_ORIGINAL);
-                    logger.info("{}", date);
+                }
+                if (date != null) {
+                    return TimeUtil.parseDateFromJpgFileDate(date);
                 }
             }
-            if (date != null) {
-                timeStr = TimeUtil.parseDateFromJpgFileDate(date);
-            }
-
         } catch (ImageProcessingException e) {
             logger.error("jpg文件读取错误", e);
         } catch (IOException e) {
             logger.error("发生io错误", e);
         }
-        return timeStr;
+        return null;
     }
 }
