@@ -24,15 +24,14 @@ public class MoveFilesService {
             String targetFilePath = directory.getAbsolutePath() + "\\" + name;
             File targetFile = new File(targetFilePath);
             if (checkMatch(name)) {
-                try {
-                    Files.move(file, targetFile);
+                boolean b = file.renameTo(targetFile);
+                if (b) {
                     logger.info("文件{}移动到文件夹{}中，成功！", file, directory);
-                } catch (IOException e) {
-                    logger.error("文件移动错误，请检查", e);
+                } else {
+                    logger.error("文件{}移动失败。", file);
                 }
             }
         }
-
     }
 
     private boolean checkMatch(String name) {

@@ -1,5 +1,6 @@
 package cuishining.util;
 
+import com.google.common.io.Files;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,14 +16,16 @@ public class JpgFileUtilTest {
     private static final Logger logger = LoggerFactory.getLogger(JpgFileUtilTest.class);
     @Test
     public void getPhotoTimeStr() throws Exception {
-       String filePath="D:\\workspace\\testJpg\\DSC_0389.JPG";
-       String filePath1="D:\\workspace\\testJpg\\IMG_20120402_134657.JPG";
-
+       String source="G:\\照片\\媳妇iphone\\IMG_6771.JPG";
+       String target="G:\\2.JPG";
+        File sourceFile = new File(source);
+        File targetFile = new File(target);
 //        String photoTimeStr = JpgFileUtil.getPhotoTimeStr(new File(filePath));
-        String photoTimeStr1 = JpgFileUtil.getPhotoTimeStr(new File(filePath1));
+//        String photoTimeStr1 = JpgFileUtil.getPhotoTimeStr(new File(filePath1));
 
+        boolean b = sourceFile.renameTo(targetFile);
 //        logger.info("{}",photoTimeStr);
-        logger.info("{}",photoTimeStr1);
+        logger.info("{}",b);
     }
 
 }
